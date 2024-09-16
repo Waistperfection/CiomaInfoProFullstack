@@ -93,3 +93,5 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+MAX_FILE_SIZE = 5 * 1024 * 1024

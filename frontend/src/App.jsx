@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap/";
 import FilterStack from "./components/filter_stack/FilterStack";
 import AddFileForm from "./components/add_file_form/AddFileForm";
-import ContentTable from "./components/content_table/ContentTable";
+import ContentTable from "./components/add_filter_modal/content_table/ContentTable";
 
 const checkRow = (row, filters) => {
   for (let i = 0; i < filters.length; i++) {

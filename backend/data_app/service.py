@@ -1,7 +1,10 @@
 from typing import Callable
+
+from django.conf import settings
 from django.core.files import File
 import pandas as pd
 from pandas import DataFrame
+
 
 from .exceptions import FileError, FileFormatError, FileSizeError
 
@@ -41,9 +44,6 @@ PARSER_MAPPING: dict[str, Callable[[File], dict]] = {
     "xlsx": parxe_xlsx,
 }
 
-MAX_FILE_SIZE = 1 * 1024 * 1024
-
-
 def check_file_format(file: File):
     """Check the file format can be mapped with PARSER_MAPPING
 
@@ -67,7 +67,7 @@ def check_file_size(file: File):
     Raises:
         FileSizeErorr: raises when file size is greater than MAX_FILE_SIZE
     """
-    if file.size > MAX_FILE_SIZE:
+    if file.size > settings.MAX_FILE_SIZE:
         raise FileSizeError("File too large")
 
 
