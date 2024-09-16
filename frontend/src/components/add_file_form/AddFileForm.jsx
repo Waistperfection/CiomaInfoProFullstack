@@ -1,22 +1,29 @@
-import { Form, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Form, Button, Spinner } from "react-bootstrap";
 
 function AddFileForm({ setData }) {
+  const [loading, setLoading] = useState(false);
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     // const file = e.target.elements[0].files[0];
+    setLoading(true);
     const file = e.target.formFile.files[0];
     formData.append("file", file);
-    const response = await fetch("http://localhost/api/upload/", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await response.json();
-    if (response.ok) {
-      setData({ ...data });
-    } else {
-      alert("Error: " + data.error);
+    try {
+      const response = await fetch("http://localhost/api/upload/", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setData({ ...data });
+      } else {
+        alert("Error: " + data.error);
+      }
+    } finally {
+      setLoading(false);
     }
   };
   const onFormCancel = (e) => {
@@ -37,7 +44,21 @@ function AddFileForm({ setData }) {
           </Form.Group>
           <Form.Group className="row gy-1 mt-2">
             <div className="col">
-              <Button type="submit" variant="success" className="w-100">
+              <Button
+                type="submit"
+                variant="success"
+                className="w-100"
+                disabled={loading}
+              >
+                {loading && (
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                )}{" "}
                 submit
               </Button>
             </div>

@@ -27,7 +27,6 @@ const checkRow = (row, filters) => {
 
 function App() {
   const [data, setData] = useState({});
-  const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState([]);
   const updateFilters = (filter) => {
     setFilters([...filters, filter]);
