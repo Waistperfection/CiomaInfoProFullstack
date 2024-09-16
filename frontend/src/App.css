@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+thead > tr {
+  background-color: hsla(216, 69%, 42%, 0.424);
+  cursor: pointer;
+  user-select: none;
+}
+
+tr > th:hover {
+  background-color: hsla(216, 98%, 52%, 0.366);
+}
+
+th {
+  vertical-align: middle;
+}
+
+.root-container {
+  background-color: rgb(177, 194, 219);
+}

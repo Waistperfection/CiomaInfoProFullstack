@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  backend:
+    container_name: backend
+    image: backend:custom
+    build: ./backend
+    restart: unless-stopped
+    expose:
+      - 8000
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 -w 2
+
+  frontend:
+    container_name: frontend
+    image: frontend:custom
+    build: ./frontend
+    restart: unless-stopped
+    expose:
+      - 3000
+    command: serve -s /usr/src/app/dist -l 3000
+    depends_on:
+      - backend
+  nginx:
+    container_name: nginx
+    image: nginx:custom
+    build: ./nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
